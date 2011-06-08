@@ -65,9 +65,9 @@ long long bwlimit_timer() {
 void bwlimit_init(struct bwlstate *state) {
 	int n;
 	memset(state, 0, sizeof(struct bwlstate));
-	state->grain = 1000;					// check every milisecond
+	state->grain = 1000;					/* check every milisecond */
 	for (n = 0; n < 24; n++) {
-		state->schedule[n] = 50;			// Default 50KB/s limit
+		state->schedule[n] = 50;			/* Default 50KB/s limit */
 	}
 }
 
@@ -92,7 +92,7 @@ void bwlimit_args(struct bwlstate *state, int argc, char **argv) {
 		argc--;argv++;
 	}
 
-	// Dump schedule in verbose mode
+	/* Dump schedule in verbose mode */
 	if (state->verbose) {
 		for (n = 0; n < 24; n++) {
 			if ((n % 12) == 0) fprintf(stderr,"SCHEDULE:");
@@ -106,14 +106,14 @@ void bwlimit_args(struct bwlstate *state, int argc, char **argv) {
 void bwlimit_start(struct bwlstate *state) {
 	state->lt = state->start = bwlimit_timer();
 	state->tot = state->btot = 0;
-	state->kbs = -1;				// force pickup from schedule
+	state->kbs = -1;				/* force pickup from schedule */
 }
 
 void bwlimit_limit(struct bwlstate *state, void *block, size_t l) {
 
 	time_t tnow;
 	struct tm now; 
-	long long ticks;	// now in nanosecond ticks
+	long long ticks;	/* now in nanosecond ticks */
 
 	/* Get the current timer (nanoseconds) */
 	ticks = bwlimit_timer();
@@ -135,10 +135,10 @@ void bwlimit_limit(struct bwlstate *state, void *block, size_t l) {
 
 	/* bandwidth throttle */
 	if (state->kbs > 0 && ticks > state->lt && (state->grain == 0 || (ticks - state->lt) >= (NanosecondsPerSecond/state->grain))) {
-		double secs = (double)(ticks-state->lt)/NanosecondsPerSecond;			// seconds since last check
-		double kbps = state->tot/secs/1024.0;						// KB/s
+		double secs = (double)(ticks-state->lt)/NanosecondsPerSecond;			/* seconds since last check */
+		double kbps = state->tot/secs/1024.0;						/* KB/s */
 		long delayed = 0;
-		while (kbps > state->kbs) {						// if KB/s > target KB/s the we need to slow it down
+		while (kbps > state->kbs) {						/* if KB/s > target KB/s the we need to slow it down */
 			bwlimit_msleep(1);
 			delayed += 1;
 			ticks = bwlimit_timer();
@@ -178,44 +178,44 @@ int main(int argc, char **argv) {
 
 	struct bwlstate state;
 
-	// Ignore sigpipe (return a write error instead)
+	/* Ignore sigpipe (return a write error instead) */
 	signal(SIGPIPE, SIG_IGN);
 
-	// Initialise bwlimit state
+	/* Initialise bwlimit state */
 	bwlimit_init(&state);
 
-	// Parse arguments and set bwlimit options
+	/* Parse arguments and set bwlimit options */
 	while (argc>1&&argv[1][0]=='-') {
 		if (argv[1][1] == 'v') {
 			state.verbose++;
 		}
-		else if (argv[1][1] == 'g') {					// Granularity of bandwidth check (n times a second)
+		else if (argv[1][1] == 'g') {					/* Granularity of bandwidth check (n times a second) */
 			state.grain = atoi(argv[1]+2);
 		}
 		argc--;argv++;
 	}
 
-	// Parse bandwidth schedule arguments
+	/* Parse bandwidth schedule arguments */
 	bwlimit_args(&state, argc, argv);
 
-	// Start bandwidth measurement
+	/* Start bandwidth measurement */
 	bwlimit_start(&state);
 
 	while (!bail && (l = read(0,block,sizeof(block)))>0) {
 
-		// Limit bandwidth
+		/* Limit bandwidth */
 		bwlimit_limit(&state, block, l);
 
-		// Write data to standard output (probably a socket)
+		/* Write data to standard output (probably a socket) */
 		{	int s = 0,w;
-			while (l > 0) {								// loop til done
+			while (l > 0) {								/* loop til done */
 				do { 
 					w = write(1,block+s,l); 
 					if (w == -1 && errno == EAGAIN) {
-						bwlimit_msleep(10);			// resource not available, wait for a bit before trying again
+						bwlimit_msleep(10);			/* resource not available, wait for a bit before trying again */
 					}
-				} while (w == -1 && (errno == EINTR || errno == EAGAIN));		// EINTR or EAGAIN, try again
-				if (w == -1) {							// other error, bail
+				} while (w == -1 && (errno == EINTR || errno == EAGAIN));		/* EINTR or EAGAIN, try again */
+				if (w == -1) {							/* other error, bail */
 					if (state.verbose) { 
 						int e = errno;
 						perror("write");
@@ -224,7 +224,7 @@ int main(int argc, char **argv) {
 					bail = 1;
 					break;
 				}
-				// track data written so far
+				/* track data written so far */
 				s += w;
 				l -= w;
 				if (l > 0 && state.verbose) {
@@ -234,7 +234,7 @@ int main(int argc, char **argv) {
 		}
 	}
 
-	// Finished
+	/* Finished */
 	bwlimit_end(&state);
 
 	return 0;
