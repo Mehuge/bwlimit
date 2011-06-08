@@ -211,11 +211,8 @@ int main(int argc, char **argv) {
 			while (l > 0) {								// loop til done
 				do { 
 					w = write(1,block+s,l); 
-					if (state.verbose && w == -1) {
-						perror("write");
-						if (errno == EAGAIN) {
-							bwlimit_msleep(10);
-						}
+					if (w == -1 && errno == EAGAIN) {
+						bwlimit_msleep(10);			// resource not available, wait for a bit before trying again
 					}
 				} while (w == -1 && (errno == EINTR || errno == EAGAIN));		// EINTR or EAGAIN, try again
 				if (w == -1) {							// other error, bail
