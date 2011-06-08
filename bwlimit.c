@@ -66,9 +66,6 @@ void bwlimit_init(struct bwlstate *state) {
 	int n;
 	memset(state, 0, sizeof(struct bwlstate));
 	state->grain = 1000;					/* check every milisecond */
-	for (n = 0; n < 24; n++) {
-		state->schedule[n] = 50;			/* Default 50KB/s limit */
-	}
 }
 
 void bwlimit_args(struct bwlstate *state, int argc, char **argv) {
