@@ -106,7 +106,7 @@ void bwlimit_start(struct bwlstate *state) {
 	state->kbs = -1;				/* force pickup from schedule */
 }
 
-void bwlimit_limit(struct bwlstate *state, void *block, size_t l) {
+void bwlimit_limit(struct bwlstate *state, size_t l) {
 
 	time_t tnow;
 	struct tm now; 
@@ -201,7 +201,7 @@ int main(int argc, char **argv) {
 	while (!bail && (l = read(0,block,sizeof(block)))>0) {
 
 		/* Limit bandwidth */
-		bwlimit_limit(&state, block, l);
+		bwlimit_limit(&state, l);
 
 		/* Write data to standard output (probably a socket) */
 		{	int s = 0,w;

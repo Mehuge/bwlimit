@@ -46,7 +46,7 @@ extern long long bwlimit_timer(void);
 extern void bwlimit_init(struct bwlstate *state);
 extern void bwlimit_args(struct bwlstate *state, int argc, char **argv);
 extern void bwlimit_start(struct bwlstate *state);
-extern void bwlimit_limit(struct bwlstate *state, void *block, size_t l);
+extern void bwlimit_limit(struct bwlstate *state, size_t l);
 extern void bwlimit_end(struct bwlstate *state);
 
 #endif /* __BWLIM_H__ */
