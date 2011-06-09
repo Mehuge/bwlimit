@@ -47,7 +47,11 @@ The default schedule is unlimited 24 hrs a day, so *bwlimit* with no arguments i
 *`-g<granularity>`*
  Set the number of times a second *bwlimit* will check and limit bandwidth.  The finer the granularity the smoother the bandwidth usage.  The default is to check bandwidth ever 1ms interval which in most cases will be fine enough granularity.  Setting granularity to 0 means that bandwidth is checked after every read, which given the internal buffer size for the read is 16k means every 16k transfered.
 
-=Author=
+=AUTHOR=
 *bwlimit* was originally written by Austin France.
 
 The *bwlimit* project is open source and can be found at http://bwlimit.googlecode.com/. It is release under the [http://www.opensource.org/licenses/bsd-license.php New BSD license].
+
+=SEE ALSO=
+
+*[bwlimitAPI bwlimit_*() API]*
