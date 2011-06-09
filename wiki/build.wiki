@@ -1,4 +1,4 @@
-#summary HOW-TO checkout, build and install *bwlimit*
+#summary HOW-TO checkout, build and install bwlimit
 
 = CHECK OUT =
 
