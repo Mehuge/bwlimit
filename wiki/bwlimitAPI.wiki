@@ -38,6 +38,12 @@ The main sequence of calls require to bandwidth a data stream is _bwlimit_init()
 *bwlimit_end()*
  This should be called once processing is complete to perform cleanup and to output totals in verbose mode.
 
+*bwlimit_timer()*
+ This is a timer routine used internally to return the number of nanoseconds since an unknown point in time.  The granularity of the timer may not be as fine as a nanosecond, and will depend upon the platform on which it is running.
+
+*bwlimit_msleep()*
+ This is a sleep routine used internally to sleep for a specified number of miliseconds.
+
 *struct bwlstate*
 
 {{{
@@ -45,11 +51,11 @@ struct bwlstate {
     int schedule[24];   /* bandwidth schedule *
     int grain;          /* grain size */
     int kbs;            /* currently selected bandwidth limit */
-    long long btot;    /* total bytes transfered */
+    long long btot;     /* total bytes transfered */
     long long start;    /* start */
     long long lt;       /* time stamp of last limit */
     long long tot;      /* total bytes between limiting */
-    int verbose;     /* verbose mode */
+    int verbose;        /* verbose mode */
 };
 }}}
 
