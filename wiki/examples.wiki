@@ -7,7 +7,7 @@ In these examples, note that bandwidth is only limited in the return direction (
 = rdiff-backup =
 
 {{{
-rdiff-backup --remote-schema="ssh %s | rdiff-backup --server | bwlimit 100 9-17,20" <remote-path> <local-path>
+rdiff-backup --remote-schema="ssh -C %s 'rdiff-backup --server | bwlimit 100 9-17,20'" <remote-path> <local-path>
 }}}
 
 = rsync =
@@ -18,7 +18,7 @@ rsync is a little more difficult, bwlimit cannot be used with rsync directly, we
 #/bin/bash
 # bwssh - run rsync server with bandwidth limit on returned data
 HOST=$1 ; shift
-exec ssh $HOST "$@ | /root/bin/bwlimit $SCHEDULE"
+exec ssh $HOST "$@ | bwlimit $SCHEDULE"
 }}}
 
 {{{
@@ -32,5 +32,20 @@ If we were pushing data to a server then the limit needs to be placed before the
 = rdiff-backup =
 
 {{{
-rdiff-backup --remote-schema="ssh %s | bwlimit 100 9-17,20 | rdiff-backup --server" <local-path> <remote-path>
+rdiff-backup --remote-schema="bwlimit 100 9-17,20 | ssh -C %s 'rdiff-backup --server" <local-path> <remote-path>
+}}}
+
+= rsync =
+
+rsync is a little more difficult, bwlimit cannot be used with rsync directly, we need to use a little *bash(1)* script to run *bwlimit*
+
+{{{
+#/bin/bash
+# bwssh - run rsync server with bandwidth limit on returned data
+HOST=$1 ; shift
+exec bwlimit $SCHEDULE | ssh $HOST "$@"
+}}}
+
+{{{
+$ rsync -ebwssh <remote-path> <local-path>
 }}}
