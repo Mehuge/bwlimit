@@ -69,3 +69,11 @@ Most of the members of this structure should not be modified, however three memb
 
 *verbose*
  If set to a non-zero value, the _bwlimit`_``*`() API_ will output to stderr, diagnostic information showing bandwidth and limiting progress.
+
+=AUTHOR=
+*bwlimit* was originally written by Austin France.
+
+The *bwlimit* project is open source and can be found at http://bwlimit.googlecode.com/. It is release under the [http://www.opensource.org/licenses/bsd-license.php New BSD license].
+
+=SEE ALSO=
+*[bwlimit bwlimit(1)]*
