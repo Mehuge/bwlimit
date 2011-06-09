@@ -32,7 +32,7 @@ If we were pushing data to a server then the limit needs to be placed before the
 = rdiff-backup =
 
 {{{
-rdiff-backup --remote-schema="bwlimit 100 9-17,20 | ssh -C %s 'rdiff-backup --server" <local-path> <remote-path>
+rdiff-backup --remote-schema="bwlimit 100 9-17,20 | ssh -C %s 'rdiff-backup --server'" <local-path> <remote-path>
 }}}
 
 = rsync =
