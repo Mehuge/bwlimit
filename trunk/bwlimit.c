@@ -224,9 +224,6 @@ int main(int argc, char **argv) {
 				/* track data written so far */
 				s += w;
 				l -= w;
-				if (l > 0 && state.verbose) {
-					fprintf(stderr, "partial write: wrote %d bytes, %d bytes remain", w, l);
-				}
 			}
 		}
 	}
