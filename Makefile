@@ -37,3 +37,8 @@ libbw.a: bwlimit.o
 
 clean:
 	rm -f bwlimit.o libbw.a
+
+install: bwlimit libbw.a
+	cp bwlimit /usr/local/bin
+	cp libbw.a /usr/local/lib
+	cp bwlimit.h /usr/local/include
