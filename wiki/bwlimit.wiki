@@ -34,7 +34,7 @@ The default schedule is unlimited 24 hrs a day, so *bwlimit* with no arguments i
 *bwlimit 100 7-21,50*
  This sets the default limit to 100 KiB/s and then sets a limit of 50KiB/s for the hours 7 thru 21.
 
-*bwlimit 0 7-8,100 9-17,50 18-21,100*
+*bwlimit 0 7,100 8,100 9-17,50 18-21,100*
  This sets the default limit as unlimited but then sets a limit of 100 KiB/s between 7-8:59:59am and 18-20:59:59pm, and a limit of 50 KiB/s for the hours 9am thru 5pm.
 
 *bwlimit 7-21,100 9-17,50*
