@@ -21,7 +21,7 @@ void bwlimit_end(struct bwlstate *state);
 
 =DESCRIPTION=
 
-The main sequence of calls require to bandwidth a data stream is _bwlimit_init()_ -> _bwlimit_start()_ -> _bwlimit_limit()_ -> _bwlimit_end()_.  _bwlimit_args()_ can be called between init and start to set the bandwidth limits per hour based on *[bwlimit bwlimit(1)]* compatible command line arguments.
+The main sequence of calls required to bandwidth limit a data stream is _bwlimit_init()_ -> _bwlimit_start()_ -> _bwlimit_limit()_ -> _bwlimit_end()_.  _bwlimit_args()_ can be called between init and start to set the bandwidth limits per hour based on *[bwlimit bwlimit(1)]* compatible command line arguments.
 
 *bwlimit_init()*
  This must be called at the start of the process.  It initialises the passed struct bwlstate structure with the default settings and prepares it for use.
