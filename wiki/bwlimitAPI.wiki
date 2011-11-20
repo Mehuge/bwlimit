@@ -48,7 +48,7 @@ The main sequence of calls required to bandwidth limit a data stream is _bwlimit
 
 {{{
 struct bwlstate {
-    int schedule[24];   /* bandwidth schedule *
+    int schedule[24];   /* bandwidth schedule (KiB/s/hour) */
     int grain;          /* grain size */
     int kbs;            /* currently selected bandwidth limit */
     long long btot;     /* total bytes transfered */
@@ -62,7 +62,7 @@ struct bwlstate {
 Most of the members of this structure should not be modified, however three members may be modified before _bwlimit_start()_ is called.
 
 *schedule*
- This is an array of 24 integers representing the bandwidth limits for each hour of the day.  This can be initialised by the application any way it sees fit.  A bandwidth of 0 means unlimited which is what this array is initialised to by default.
+ This is an array of 24 integers representing the bandwidth limits for each hour of the day.  This can be initialised by the application any way it sees fit.  A bandwidth limit of 0 means unlimited which is what this array is initialised to by default.
 
 *grain*
  This is the grain size, or the number of times per second, that bandwidth is checked.  This is set to 1000 (ie once every 1ms) by default.
