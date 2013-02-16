@@ -23,19 +23,19 @@ void bwlimit_end(struct bwlstate *state);
 
 The main sequence of calls required to bandwidth limit a data stream is _bwlimit_init()_ -> _bwlimit_start()_ -> _bwlimit_limit()_ -> _bwlimit_end()_.  _bwlimit_args()_ can be called between init and start to set the bandwidth limits per hour based on *[bwlimit bwlimit(1)]* compatible command line arguments.
 
-*bwlimit_init(struct bwlstate *state)*
+*bwlimit_init(struct bwlstate `*`state)*
  This must be called at the start of the process.  It initialises the passed struct bwlstate structure with the default settings and prepares it for use.
 
-*bwlimit_args(struct bwlstate *state, int argc, char **argv)*
+*bwlimit_args(struct bwlstate `*`state, int argc, char `*``*`argv)*
  This is optionally called after init and before start to set the bandwidth limit schedule based on command line arguments compatible with *[bwlimit bwlimit(1)]*.  Bandwidth limits can be set directly in the bwlimit state structure through the *schedule[]* member, which is a 24 element integer array containing the bandwidth limits in KiB/s for each of the 24 hours.
 
-*bwlimit_start(struct bwlstate *state)*
+*bwlimit_start(struct bwlstate `*``*`state)*
  This starts the bandwidth limit process.  Essentially it resets the totals and sets the start time.
 
-*bwlimit_limit(struct bwlstate *state, size_t size)*
+*bwlimit_limit(struct bwlstate `*`state, size_t size)*
  This is the guts of the bandwidth limiting logic.  It should be called somewhere in the main loop after a read and before the write.  It is passed the size of the data just read and will effect a delay based on the amount of data passed through so far to limit the throughput to the desired bandwidth for the current hour.
 
-*bwlimit_end(struct bwlstate *state)*
+*bwlimit_end(struct bwlstate `*`state)*
  This should be called once processing is complete to perform cleanup and to output totals in verbose mode.
 
 *bwlimit_timer()*
