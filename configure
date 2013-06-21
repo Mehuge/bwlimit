@@ -1,0 +1,29 @@
+#!/bin/bash
+
+MakeConfigH() {
+	echo "configure generating config.h ..."
+	case "`uname -s`" in
+	Darwin)
+		echo "#define _CONFIG_OSX" 
+		echo "#define _USE_SYS_TIME_H"
+		;;
+	*) ;;
+	esac > config.h
+}
+
+MakeMakefile() {
+	echo "check for librt.so.1 ..."
+	librt=0 ; test -f /lib/librt.so.1 && librt=1
+	echo "configure generating Makefile ..."
+	awk '/^# Configure/ { 
+			print; 
+			if (librt) print "LRT=-lrt";
+			next; 
+		}
+		{ print; }
+		' librt=$librt Makefile.in > Makefile
+}
+
+MakeConfigH 
+MakeMakefile
+echo "configure complete!"

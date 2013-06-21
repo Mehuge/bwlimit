@@ -25,8 +25,13 @@
 * POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include "config.h"
 #include <time.h>
 #include <stdio.h>
+#include <stdlib.h>
+#ifdef _USE_SYS_TIME_H
+#include <sys/time.h>
+#endif
 #include <sys/times.h>
 #include <sys/types.h>
 #include <sys/select.h>
