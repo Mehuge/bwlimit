@@ -136,16 +136,18 @@ void bwlimit_limit(struct bwlstate *state, size_t l) {
 	state->btot += l;
 
 	/* bandwidth throttle */
-	if (state->kbs > 0 && ticks > state->lt && (state->grain == 0 || (ticks - state->lt) >= (NanosecondsPerSecond/state->grain))) {
+	if (ticks > state->lt && (state->grain == 0 || (ticks - state->lt) >= (NanosecondsPerSecond/state->grain))) {
 		double secs = (double)(ticks-state->lt)/NanosecondsPerSecond;			/* seconds since last check */
 		double kbps = state->tot/secs/1024.0;						/* KB/s */
 		long delayed = 0;
-		while (kbps > state->kbs) {						/* if KB/s > target KB/s the we need to slow it down */
-			bwlimit_msleep(1);
-			delayed += 1;
-			ticks = bwlimit_timer();
-			secs = (double)(ticks-state->lt)/NanosecondsPerSecond;
-			kbps = state->tot/secs/1024.0;
+		if (state->kbs > 0) {								/* only rate limit if kbs > 0 */
+			while (kbps > state->kbs) {						/* if KB/s > target KB/s the we need to slow it down */
+				bwlimit_msleep(1);
+				delayed += 1;
+				ticks = bwlimit_timer();
+				secs = (double)(ticks-state->lt)/NanosecondsPerSecond;
+				kbps = state->tot/secs/1024.0;
+			}
 		}
 		if (state->verbose) {
 			fprintf(stderr,"%09lld: %7lld bytes in %9.6fs [msleep %3ld] (%8.3fKB/s) %6lldMB total\n",
