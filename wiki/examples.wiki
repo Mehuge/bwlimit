@@ -41,7 +41,7 @@ rsync is a little more difficult, bwlimit cannot be used with rsync directly, we
 
 {{{
 #/bin/bash
-# bwssh - run rsync server with bandwidth limit on returned data
+# bwssh - run rsync server with bandwidth limit on data sent to server
 HOST=$1 ; shift
 exec bwlimit 100 9-17,20 | ssh $HOST "$@"
 }}}
