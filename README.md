@@ -1,4 +1,4 @@
-##summary bwlimit man page
+#bwlimit man Page
 
 ###NAME
 *bwlimit* - bandwidth limiter for pipelines
@@ -54,7 +54,7 @@ The *bwlimit* project is open source and can be found at http://bwlimit.googleco
 
 *[bwlimitAPI bwlimit_*() API]*
 
-##summary HOW-TO checkout, build and install bwlimit
+# HOW-TO checkout, build and install bwlimit
 
 ###CHECK OUT
 
@@ -70,7 +70,7 @@ The *bwlimit* project is open source and can be found at http://bwlimit.googleco
     $ cd bwlimit-read-only
     $ make install
 
-##summary bwlimit_*() API
+#bwlimit_*() API
 
 ###Introduction
 
@@ -144,7 +144,7 @@ The *bwlimit* project is open source and can be found at http://bwlimit.googleco
 ###SEE ALSO
 *[bwlimit bwlimit(1)]*
 
-##summary Example Usage
+#Example Usage
 
 ###Pull Examples
 
