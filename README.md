@@ -139,7 +139,7 @@ Most of the members of this structure should not be modified, however three memb
 ###AUTHOR
 *bwlimit* was originally written by Austin France.
 
-The *bwlimit* project is open source and can be found at http://bwlimit.googlecode.com/. It is release under the [http://www.opensource.org/licenses/bsd-license.php New BSD license].
+The *bwlimit* project is open source and can be found at https://github.com/Mehuge/bwlimit. It is release under the New BSD license - http://www.opensource.org/licenses/bsd-license.php
 
 ###SEE ALSO
 *[bwlimit bwlimit(1)]*
