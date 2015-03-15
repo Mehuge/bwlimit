@@ -5,9 +5,7 @@
 
 ###SYNOPSIS
 
-{{{
-bwlimit [-v] [-g<granularity>] [[schedule,]limit [...]]
-}}}
+    bwlimit [-v] [-g<granularity>] [[schedule,]limit [...]]
 
 ###DESCRIPTION
 
@@ -60,23 +58,17 @@ The *bwlimit* project is open source and can be found at http://bwlimit.googleco
 
 ###CHECK OUT
 
-{{{
-$ svn checkout http://bwlimit.googlecode.com/svn/trunk/ bwlimit-read-only
-}}}
+    $ svn checkout http://bwlimit.googlecode.com/svn/trunk/ bwlimit-read-only
 
 ###BUILD
 
-{{{
-$ cd bwlimit-read-only
-$ make
-}}}
+    $ cd bwlimit-read-only
+    $ make
 
 ###INSTALL
 
-{{{
-$ cd bwlimit-read-only
-$ make install
-}}}
+    $ cd bwlimit-read-only
+    $ make install
 
 ##summary bwlimit_*() API
 
@@ -86,18 +78,14 @@ $ make install
 
 ###SYNOPSIS
 
-{{{
-#include "bwlimit.h"
-}}}
-{{{ 
-void bwlimit_msleep(long ms); 
-long long bwlimit_timer(void); 
-void bwlimit_init(struct bwlstate *state);
-void bwlimit_args(struct bwlstate *state, int argc, char **argv); 
-void bwlimit_start(struct bwlstate *state); 
-void bwlimit_limit(struct bwlstate *state, size_t size); 
-void bwlimit_end(struct bwlstate *state); 
-}}}
+    #include "bwlimit.h"
+    void bwlimit_msleep(long ms); 
+    long long bwlimit_timer(void); 
+    void bwlimit_init(struct bwlstate *state);
+    void bwlimit_args(struct bwlstate *state, int argc, char **argv); 
+    void bwlimit_start(struct bwlstate *state); 
+    void bwlimit_limit(struct bwlstate *state, size_t size); 
+    void bwlimit_end(struct bwlstate *state); 
 
 ###DESCRIPTION
 
@@ -126,18 +114,16 @@ The main sequence of calls required to bandwidth limit a data stream is _bwlimit
 
 *struct bwlstate*
 
-{{{
-struct bwlstate {
-    int schedule[24];   /* bandwidth schedule (KiB/s/hour) */
-    int grain;          /* grain size */
-    int kbs;            /* currently selected bandwidth limit */
-    long long btot;     /* total bytes transfered */
-    long long start;    /* start */
-    long long lt;       /* time stamp of last limit */
-    long long tot;      /* total bytes between limiting */
-    int verbose;        /* verbose mode */
-};
-}}}
+    struct bwlstate {
+        int schedule[24];   /* bandwidth schedule (KiB/s/hour) */
+        int grain;          /* grain size */
+        int kbs;            /* currently selected bandwidth limit */
+        long long btot;     /* total bytes transfered */
+        long long start;    /* start */
+        long long lt;       /* time stamp of last limit */
+        long long tot;      /* total bytes between limiting */
+        int verbose;        /* verbose mode */
+    };
 
 Most of the members of this structure should not be modified, however three members may be modified before _bwlimit_start()_ is called.
 
@@ -166,9 +152,7 @@ In these examples, note that bandwidth is only limited in the return direction (
 
 ###rdiff-backup
 
-{{{
-rdiff-backup --remote-schema="ssh -C %s 'rdiff-backup --server | bwlimit 100 9-17,20'" <remote-path> <local-path>
-}}}
+    rdiff-backup --remote-schema="ssh -C %s 'rdiff-backup --server | bwlimit 100 9-17,20'" <remote-path> <local-path>
 
 ###rsync
 
