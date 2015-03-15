@@ -58,16 +58,16 @@ The *bwlimit* project is open source and can be found at http://bwlimit.googleco
 
 ###CHECK OUT
 
-    $ svn checkout http://bwlimit.googlecode.com/svn/trunk/ bwlimit-read-only
+    $ git clone https://github.com/Mehuge/bwlimit
 
 ###BUILD
 
-    $ cd bwlimit-read-only
+    $ cd bwlimit
     $ make
 
 ###INSTALL
 
-    $ cd bwlimit-read-only
+    $ cd bwlimit
     $ make install
 
 #bwlimit_*() API
