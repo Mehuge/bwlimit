@@ -72,11 +72,11 @@ SEE ALSO
 ### BUILD
 
     $ cd bwlimit
+    $ bash ./configure
     $ make
 
 ### INSTALL
 
-    $ cd bwlimit
     $ make install
 
 # bwlimit_*() API
