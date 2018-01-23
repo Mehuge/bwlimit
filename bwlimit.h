@@ -31,14 +31,14 @@
 #define NanosecondsPerSecond 1000000000
 
 struct bwlstate {
-	int schedule[24];
-	int grain;
-	int kbs;			/* current bandwidth */
-	long long btot;
-	long long start;	/* start */
-	long long lt;		/* time stamp of last limit */
-	long long tot;		/* total bytes between limiting */
-	int verbose;
+  int schedule[24];
+  int grain;
+  int kbs;			/* current bandwidth */
+  long long btot;
+  long long start;	/* start */
+  long long lt;		/* time stamp of last limit */
+  long long tot;		/* total bytes between limiting */
+  int verbose;
 };
 
 extern void bwlimit_msleep(long ms);
