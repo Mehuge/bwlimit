@@ -108,7 +108,7 @@ The main sequence of calls required to bandwidth limit a data stream is `bwlimit
 
  This is optionally called after init and before start to set the bandwidth limit schedule based on command line arguments compatible with *[bwlimit bwlimit(1)]*.  Bandwidth limits can be set directly in the bwlimit state structure through the *schedule[]* member, which is a 24 element integer array containing the bandwidth limits in KiB/s for each of the 24 hours.
 
-`bwlimit_start(struct bwlstate **state)`
+`bwlimit_start(struct bwlstate *state)`
 
  This starts the bandwidth limit process.  Essentially it resets the totals and sets the start time.
 
